@@ -3,8 +3,7 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Active pnpm via corepack (inclus dans Node 22)
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install -g pnpm
 
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
