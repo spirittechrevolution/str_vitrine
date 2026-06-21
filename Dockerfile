@@ -3,15 +3,13 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-RUN npm install -g pnpm
-
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+COPY package.json ./
+RUN npm install
 
 COPY . .
 
 # CI=true → youware plugin ignoré, sourcemap désactivé
-RUN CI=true pnpm build
+RUN CI=true npm run build
 
 # ── Stage 2 : Production ──────────────────────────────────────────────
 FROM nginx:1.27-alpine
