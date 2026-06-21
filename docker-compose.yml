@@ -1,0 +1,39 @@
+# ===================================================================
+# Spirit Tech Revolution – Site vitrine
+# ===================================================================
+# Prérequis : réseau Docker "proxy" créé par l'infra partagée
+#
+# Démarrage :
+#   cd /opt/vitrine
+#   docker compose --env-file .env up -d
+#
+# Image Docker Hub : spirittechrevolution/str-vitrine
+# URL publique     : https://spirittechrevolution.com
+# ===================================================================
+
+services:
+
+  vitrine:
+    image: spirittechrevolution/str-vitrine:${TAG:-latest}
+    container_name: str-vitrine
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      # Apex + www
+      - traefik.http.routers.vitrine.rule=Host(`${INFRA_DOMAIN}`) || Host(`www.${INFRA_DOMAIN}`)
+      - traefik.http.routers.vitrine.entrypoints=websecure
+      - traefik.http.routers.vitrine.tls.certresolver=letsencrypt
+      - traefik.http.services.vitrine.loadbalancer.server.port=80
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  proxy:
+    external: true
