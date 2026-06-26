@@ -34,7 +34,7 @@ const products: Product[] = [
     icon: Users,
   },
   {
-    name: 'Citerne',
+    name: 'TankMetric',
     tagline: 'Jaugeage de citernes industrielles',
     description:
       'Plateforme B2B de calcul de jaugeage pour citernes industrielles. Génère automatiquement les barèmes de volumes, tables de jaugeage et rapports d\'export pour 5 géométries de réservoirs.',
