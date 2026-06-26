@@ -12,7 +12,6 @@
 # ===================================================================
 
 services:
-
   vitrine:
     image: spirittechrevolution/str-vitrine:${TAG:-latest}
     container_name: str-vitrine
@@ -21,20 +20,23 @@ services:
       - proxy
     labels:
       - traefik.enable=true
+
       # www.spirittechrevolution.com
       - traefik.http.routers.vitrine.rule=Host(`www.${INFRA_DOMAIN}`)
       - traefik.http.routers.vitrine.entrypoints=websecure
       - traefik.http.routers.vitrine.tls.certresolver=letsencrypt
       - traefik.http.services.vitrine.loadbalancer.server.port=80
+
       # spirittechrevolution.com → redirect vers www
       - traefik.http.routers.vitrine-apex.rule=Host(`${INFRA_DOMAIN}`)
       - traefik.http.routers.vitrine-apex.entrypoints=websecure
       - traefik.http.routers.vitrine-apex.tls.certresolver=letsencrypt
       - traefik.http.routers.vitrine-apex.service=vitrine
       - traefik.http.routers.vitrine-apex.middlewares=vitrine-www-redirect
-      - traefik.http.middlewares.vitrine-www-redirect.redirectregex.regex=^https://${INFRA_DOMAIN}/(.*)
+      - traefik.http.middlewares.vitrine-www-redirect.redirectregex.regex=^https://$
       - traefik.http.middlewares.vitrine-www-redirect.redirectregex.replacement=https://www.${INFRA_DOMAIN}/$${1}
       - traefik.http.middlewares.vitrine-www-redirect.redirectregex.permanent=true
+
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/health || exit 1"]
       interval: 30s
