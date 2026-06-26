@@ -1,4 +1,4 @@
-import { Users, CheckCircle2, Gauge, ArrowUpRight, Mail } from 'lucide-react';
+import { Users, CheckCircle2, Gauge, ArrowUpRight, Mail, Pill, Calendar, UtensilsCrossed } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 interface Product {
@@ -50,6 +50,60 @@ const products: Product[] = [
     gradient: 'from-mint-500 to-emerald-600',
     accentColor: 'rgba(34, 197, 94, 0.12)',
     icon: Gauge,
+  },
+  {
+    name: 'PharmaGest',
+    tagline: 'Gestion pharmaceutique multi-pharmacies',
+    description:
+      'Solution complète de gestion pour pharmacies : point de vente intégré, suivi des stocks et péremptions, gestion des ordonnances et prise en charge IPM, avec génération de documents PDF.',
+    features: [
+      'Point de vente (POS) avec gestion des médicaments',
+      'Suivi des stocks, lots et dates de péremption',
+      'Module ordonnances & prise en charge IPM',
+      'Génération automatique de documents PDF',
+    ],
+    status: 'coming',
+    tech: ['Spring Boot', 'React', 'PostgreSQL', 'MinIO'],
+    url: null,
+    gradient: 'from-emerald-400 to-teal-600',
+    accentColor: 'rgba(20, 184, 166, 0.12)',
+    icon: Pill,
+  },
+  {
+    name: 'SenEvent',
+    tagline: 'Gestion d\'événements & billetterie',
+    description:
+      'Plateforme de création et de gestion d\'événements : de la planification à la vente de billets, en passant par le contrôle d\'accès et le suivi en temps réel des participants.',
+    features: [
+      'Création et publication d\'événements',
+      'Billetterie et gestion des participants',
+      'Contrôle d\'accès digital',
+      'Dashboard organisateur en temps réel',
+    ],
+    status: 'coming',
+    tech: ['React', 'Spring Boot', 'PostgreSQL'],
+    url: null,
+    gradient: 'from-teal-500 to-mint-600',
+    accentColor: 'rgba(20, 184, 166, 0.10)',
+    icon: Calendar,
+  },
+  {
+    name: 'SenResto',
+    tagline: 'Restaurant digital de bout en bout',
+    description:
+      'Application complète pour restaurants : menu digital, prise de commandes en salle, suivi en cuisine en temps réel, gestion des réservations et analytics de performance.',
+    features: [
+      'Menu digital & prise de commandes par table',
+      'Tableau de bord cuisine en temps réel',
+      'Réservations et gestion des tables',
+      'Analytics & gestion des promotions',
+    ],
+    status: 'coming',
+    tech: ['React', 'Spring Boot', 'PostgreSQL'],
+    url: null,
+    gradient: 'from-mint-400 to-emerald-500',
+    accentColor: 'rgba(52, 211, 153, 0.10)',
+    icon: UtensilsCrossed,
   },
 ];
 
@@ -109,17 +163,17 @@ export default function Products() {
             Nos Solutions
           </span>
           <h2 className="font-display text-4xl sm:text-5xl text-sage-900 leading-tight mb-6">
-            Des produits déjà
-            <span className="gradient-text block mt-1">en production</span>
+            Nos solutions,
+            <span className="gradient-text block mt-1">de l'idée à la prod</span>
           </h2>
           <p className="text-lg text-sage-400 leading-relaxed">
-            Chaque solution Spirit Tech répond à un besoin réel. Découvrez nos applications
-            déjà adoptées par nos premiers utilisateurs.
+            Chaque solution Spirit Tech répond à un besoin réel du marché africain.
+            En production ou en cours de développement, nos produits sont conçus pour durer.
           </p>
         </div>
 
         {/* Products Grid */}
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {products.map((product, i) => {
             const Icon = product.icon;
             const status = statusConfig[product.status];
